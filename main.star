@@ -1,18 +1,8 @@
-# NOTE: If you're a VSCode user, you might like our VSCode extension: https://marketplace.visualstudio.com/items?itemName=Kurtosis.kurtosis-extension
+mongodb = import_module("github.com/kurtosis-tech/mongodb-package/main.star")
 
-# For more information on...
-#  - the 'run' function:  https://docs.kurtosis.com/concepts-reference/packages#runnable-packages
-#  - the 'plan' object:   https://docs.kurtosis.com/starlark-reference/plan
-#  - the 'args' object:   https://docs.kurtosis.com/next/concepts-reference/args
+nginx = import_module("github.com/kurtosis-tech/infisical-package/nginx/nginx.star")
+
 def run(plan, args):
-    args = override_default_args(args)
-    plan.print("Hello, " + args["name"])
+    mongodb_output = mongodb.run(plan, {})
 
-
-def override_default_args(args):
-    default_args = {
-        "name": "John Snow"
-    }
-
-    # See https://github.com/bazelbuild/starlark/blob/master/spec.md for all the cool stuff you can do in Starlark
-    return default_args | args
+    nginx.add_nginx(plan, struct(url = "foo"), struct(url = "bar"))

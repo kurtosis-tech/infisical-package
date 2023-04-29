@@ -1,17 +1,16 @@
-My Package
-============
-This is a [Kurtosis package](https://docs.kurtosis.com/concepts-reference/packages). It doesn't do much now, but it will soon!
+Infisical Package
+=================
+This is a [Kurtosis package](https://docs.kurtosis.com/concepts-reference/packages) that spins up a package running [Infisical](https://github.com/Infisical/infisical).
 
 Run this package
 ----------------
-Open [the Kurtosis playground](https://gitpod.io/#/https://github.com/kurtosis-tech/playground-gitpod) and run:
+If you have, [Kurtosis installed][install-kurtosis], you can run:
 
-<!-- TODO replace YOURUSER and THISREPO with the correct values -->
 ```bash
-kurtosis run github.com/YOURUSER/THISREPO
+kurtosis run github.com/kurtosis-tech/infisical-package
 ```
 
-To run it locally, [install Kurtosis][install-kurtosis] and run the same.
+If you don't have Kurtosis installed, [click here to run this package on the Kurtosis playground](https://gitpod.io/#KURTOSIS_PACKAGE_LOCATOR=github.com%2Fkurtosis-tech%2Finfisical-package/https://github.com/kurtosis-tech/playground-gitpod).
 
 To blow away the created [enclave][enclaves-reference], run `kurtosis clean -a`.
 
@@ -20,20 +19,29 @@ To blow away the created [enclave][enclaves-reference], run `kurtosis clean -a`.
 <details>
     <summary>Click to see configuration</summary>
 
-<!-- You can parameterize your package as you prefer; see https://docs.kurtosis.com/next/concepts-reference/args for more -->
-You can configure this package using the following JSON structure:
+You can configure this package using the JSON structure below. The default values for each parameter are shown.
+
+NOTE: the `//` lines are not valid JSON; you will need to remove them!
 
 ```javascript
 {
+    // The name to print
     "name": "John Snow"
 }
 ```
 
+The arguments can then be passed in to `kurtosis run`.
+
 For example:
 
-<!-- TODO replace YOURUSER and THISREPO with the correct values -->
 ```bash
-kurtosis run github.com/YOURUSER/THISREPO '{"name":"Maynard James Keenan"}'
+kurtosis run github.com/kurtosis-tech/infisical-package '{"name":"Maynard James Keenan"}'
+```
+
+You can also store the JSON args in a file, and use command expansion to slot them in:
+
+```bash
+kurtosis run github.com/kurtosis-tech/infisical-package "$(cat args.json)"
 ```
 
 </details>
@@ -42,11 +50,10 @@ Use this package in your package
 --------------------------------
 Kurtosis packages can be composed inside other Kurtosis packages. To use this package in your package:
 
-<!-- TODO Replace YOURUSER and THISREPO with the correct values! -->
 First, import this package by adding the following to the top of your Starlark file:
 
 ```python
-this_package = import_module("github.com/YOURUSER/THISREPO/main.star")
+this_package = import_module("github.com/kurtosis-tech/infisical-package/main.star")
 ```
 
 Then, call the this package's `run` function somewhere in your Starlark script:
